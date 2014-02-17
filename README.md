@@ -3,7 +3,7 @@ pivotview
 
 We are attempting to visualize sample in Pivot with different dynamic groups
 
-Sample Text file (data.txt)
+Sample Input file (data.txt)
 
 | name   | Gender | Age | Location |
 | ------ |:------:| --- | -------  |
@@ -27,7 +27,7 @@ $ cat data.txt|piviot -by Age
 | F      |  3    |
 
 
-Group data based on Age
+Group data based on Age,Location
 
 ```
 $ cat data.txt|piviot -by Gender -by Location
@@ -38,6 +38,44 @@ $ cat data.txt|piviot -by Gender -by Location
 | M      | Location1 |  1    |     
 | F      | Location2 |  3    |     
 | M      | Location3 |  1    |     
+
+Support Output format csv,html
+
+```
+$ cat data.txt|piviot -by Gender -by Location -o html
+```
+
+Output
+
+```
+<table>
+<tr>
+  <td>Gender</td>
+  <td>Location</td>
+  <td>Count</td>
+</tr>
+<td>
+<td>M</td>
+.....
+.....
+..
+</td>
+</table>
+```
+
+```
+$ cat data.txt|piviot -by Gender -by Location -o csv
+```
+
+Output
+
+```
+Gender,Location,Count
+M,Location1,1
+F,Location2,3
+M,Location3,1
+
+```
 
 Guidelines
 ==========
