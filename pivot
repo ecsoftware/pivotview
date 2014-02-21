@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+
+"""
+Pivot program to visualize the data set in specific format.
+
+Note: Since in the probelm input data format is not specied I assumed
+      space is the delimiter and also fist line will be header/keys.
+"""
+import sys
+import os
+import stat
+import argparse
+
+from collections import defaultdict
+
+def print_output(column_headers, data, output_format):
+  indent_two_spaces = '  '
+  if output_format == 'html':
+    print '<table>\n<th>'
+    for key in column_headers:
+      print ''.join([indent_two_spaces, '<td>', key.capitalize(), '</td>'])
+    print '  <td>count</td>\n</th>'
+
+    for k_tuple, count in data.iteritems():
+      print '<tr>'
+      for key in k_tuple: 
+        print ''.join([indent_two_spaces,'<td>',key.capitalize(),'</td>'])
+      print ''.join([indent_two_spaces,'<td>',str(count),'</td>\n</tr>'])
+    print'</table>'
+  elif output_format == 'csv':
+    keys = [key.capitalize() for key in column_headers]
+    print ','.join(keys)+',count'
+
+    for k_tuple, count in data.iteritems():
+      print ','.join(k_tuple)+','+str(count)
+  else:
+    print 'Unsupported output format.'
+
+def main():
+  mode = os.fstat(0).st_mode
+
+  # Exit if command is not piped.
+  if not stat.S_ISFIFO(mode):return
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-by', action='append', help='Group data by.')
+  parser.add_argument('-o', action='append', help='Output data format.')
+  args = parser.parse_args()
+  data = sys.stdin.readlines()
+  grouped_dict = defaultdict(int)
+  grouped = []
+
+  # Assuming first line will be header, as problem doesnt specifies anything
+  # exactly.
+  keys = [key.strip().lower() for key in data[0].split(' ') if key.strip()]
+  group_by = args.by
+  indices = [keys.index(key) for key in group_by]
+
+  for line in data[1:]:
+    try:
+      row = [val.rstrip('\n').lower() for val in line.split(' ') if val.strip()]
+      grouped_dict[tuple([ row[index] for index in indices])] += 1
+    except:
+      continue
+
+  if args.by and args.o:
+    print_output(args.by, grouped_dict, args.o[0])
+  else:
+    print 'Please specify the output format.'
+
+if __name__ == '__main__':
+  main()
