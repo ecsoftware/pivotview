@@ -80,7 +80,7 @@ M,Location3,1
 Guidelines
 ==========
 
-* Source code for the problem solution accept through [Pull request](https://help.github.com/articles/merging-a-pull-request/) to Sprint0 branch only
+* Source code for the problem solution accept through [Pull request](https://help.github.com/articles/creating-a-pull-request/) to Sprint0 branch only
 * Developers can take their own assumptions to solve the problem
 * Take simple,smart(or dirty) approach to solve the problem with acceptable effort.
 * No need of statistic frameworks like numpy,R and custom bash scripts;
