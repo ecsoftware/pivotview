@@ -1,0 +1,7 @@
+name Gender age Location
+User1 M 20  Location1
+User2 M 18  Location3
+User3 F 45  Location2
+User4 F 25  Location2
+User4 F 7 Location2
+
