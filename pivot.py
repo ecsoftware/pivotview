@@ -74,10 +74,10 @@ def main():
   #['name Gender age Location\n', 'User1 M 20  Location1\n', 'User2 M 18  Location3\n', 'User3 F 45  Location2\n', 
   #'User4 F 25  Location2\n', 'User4 F #7 Location2\n', '\n']
   
-  data = sys.stdin.readlines() 
+  #data = sys.stdin.readlines() 
 
   # TODO: uncomment the line if the command line is not working
-  #data = open('data.txt').readlines()
+  data = open('data.txt').readlines()
   
   grouped_dict = defaultdict(int)
 
@@ -107,7 +107,7 @@ def main():
       if args.o:
         # Check the output format is available or not in 
         # the output formats list
-        if agrs.o[0].strip().lower() in output_formats:
+        if args.o[0].strip().lower() in output_formats:
           pivot_output(args.by, grouped_dict, args.o[0])
         else:
           print 'Please specify the valid output format.'
